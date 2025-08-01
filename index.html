@@ -63,6 +63,29 @@
         #detail-view {
             transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
         }
+
+        /* Gradient and arrow to indicate scrollable area on the category bar */
+        .scroll-indicator {
+            position: relative;
+        }
+        .scroll-indicator::after {
+            content: '›';
+            font-size: 28px;
+            font-weight: bold;
+            color: #9CA3AF;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(to right, transparent, #F5F5F5 50%);
+            padding: 10px 8px 10px 20px;
+            pointer-events: none;
+            line-height: 1;
+        }
+        .dark .scroll-indicator::after {
+            background: linear-gradient(to right, transparent, #1A1A1A 50%);
+            color: #6B7280;
+        }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-sans antialiased">
@@ -81,20 +104,22 @@
                 <div class="flex items-center space-x-3">
                     <!-- Theme Toggle -->
                     <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark">
-                        <!-- Sun Icon for Light Mode -->
+                        <!-- Sun Icon (shown in dark mode to switch to light) -->
                         <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        <!-- Moon Icon for Dark Mode -->
+                        <!-- Moon Icon (shown in light mode to switch to dark) -->
                         <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                     </button>
                     <!-- Language Toggle -->
-                    <button id="language-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark text-base font-semibold">EN</button>
+                    <button id="language-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark text-base font-semibold w-10 h-10">EN</button>
                 </div>
             </header>
 
             <!-- Category Filters -->
             <nav class="px-4 pb-4 sticky top-0 bg-background-light dark:bg-background-dark z-10">
-                <div id="category-filters" class="flex space-x-3 overflow-x-auto no-scrollbar">
-                    <!-- Categories will be injected here by JavaScript -->
+                <div class="scroll-indicator">
+                    <div id="category-filters" class="flex space-x-3 overflow-x-auto no-scrollbar">
+                        <!-- Categories will be injected here by JavaScript -->
+                    </div>
                 </div>
             </nav>
 
@@ -113,36 +138,47 @@
 
     <script>
         // --- DATA ---
-        // Contains all text for internationalization (i18n) and menu data
         const appData = {
             text: {
                 en: {
                     headerSubtitle: "Digital Menu",
                     allCategories: "All",
                     ingredients: "Ingredients",
-                    badges: {
-                        chef: "Chef's Suggestion",
-                        new: "New!",
-                        spicy: "Spicy"
-                    }
+                    badges: { chef: "Chef's Suggestion", new: "New!", spicy: "Spicy", popular: "Popular" }
                 },
                 pt: {
                     headerSubtitle: "Menu Digital",
                     allCategories: "Todos",
                     ingredients: "Ingredientes",
-                    badges: {
-                        chef: "Sugestão do Chef",
-                        new: "Novo!",
-                        spicy: "Picante"
-                    }
+                    badges: { chef: "Sugestão do Chef", new: "Novo!", spicy: "Picante", popular: "Popular" }
                 }
             },
             menu: {
                 categories: {
-                    en: ["Pizza", "Sandwiches", "Desserts", "Drinks"],
-                    pt: ["Pizza", "Sanduíches", "Sobremesas", "Bebidas"]
+                    en: ["Starters", "Pizza", "Sandwiches", "Desserts", "Drinks"],
+                    pt: ["Entradas", "Pizza", "Sanduíches", "Sobremesas", "Bebidas"]
                 },
                 items: [
+                    {
+                        id: 7,
+                        name: { en: "Bruschetta", pt: "Bruschetta" },
+                        category: { en: "Starters", pt: "Entradas" },
+                        price: "8.50",
+                        description: { en: "Toasted bread with fresh tomatoes, garlic, basil, and a drizzle of balsamic glaze.", pt: "Pão torrado com tomates frescos, alho, manjericão e um fio de creme balsâmico." },
+                        image: "https://images.unsplash.com/photo-1505253716362-afb542cabc80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+                        badges: ["popular"],
+                        ingredients: [ { name: { en: "Tomato", pt: "Tomate" }, icon: "🍅" }, { name: { en: "Garlic", pt: "Alho" }, icon: "🧄" }, { name: { en: "Basil", pt: "Manjericão" }, icon: "🌿" } ]
+                    },
+                    {
+                        id: 8,
+                        name: { en: "Caprese Salad", pt: "Salada Caprese" },
+                        category: { en: "Starters", pt: "Entradas" },
+                        price: "9.00",
+                        description: { en: "Simple and delicious salad with fresh mozzarella, tomatoes, basil, and olive oil.", pt: "Salada simples e deliciosa com mozzarella fresca, tomate, manjericão e azeite." },
+                        image: "https://images.unsplash.com/photo-1529692236671-f1f6b5f46b54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80",
+                        badges: [],
+                        ingredients: [ { name: { en: "Mozzarella", pt: "Mozzarella" }, icon: "🧀" }, { name: { en: "Tomato", pt: "Tomate" }, icon: "🍅" }, { name: { en: "Basil", pt: "Manjericão" }, icon: "🌿" } ]
+                    },
                     {
                         id: 1,
                         name: { en: "Margherita Pizza", pt: "Pizza Margherita" },
@@ -169,7 +205,7 @@
                         category: { en: "Sandwiches", pt: "Sanduíches" },
                         price: "10.50",
                         description: { en: "A triple-decker sandwich with grilled chicken, bacon, lettuce, tomato, and mayo.", pt: "Uma sanduíche de três andares com frango grelhado, bacon, alface, tomate e maionese." },
-                        image: "https://images.unsplash.com/photo-1567234669013-24231b23c580?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+                        image: "https://images.unsplash.com/photo-1619894992620-f52a73945a27?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
                         badges: [],
                         ingredients: [ { name: { en: "Chicken", pt: "Frango" }, icon: "🍗" }, { name: { en: "Bacon", pt: "Bacon" }, icon: "🥓" }, { name: { en: "Lettuce", pt: "Alface" }, icon: "🥬" }, { name: { en: "Tomato", pt: "Tomate" }, icon: "🍅" } ]
                     },
@@ -189,7 +225,7 @@
                         category: { en: "Desserts", pt: "Sobremesas" },
                         price: "8.00",
                         description: { en: "A decadent chocolate cake with a warm, liquid chocolate center. Served with a scoop of vanilla ice cream.", pt: "Um bolo de chocolate decadente com um centro de chocolate líquido e quente. Servido com uma bola de gelado de baunilha." },
-                        image: "https://images.unsplash.com/photo-1586985289936-76a03a39281a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+                        image: "https://images.unsplash.com/photo-1542826438-c32144d5d2c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
                         badges: ["new"],
                         ingredients: [ { name: { en: "Dark Chocolate", pt: "Chocolate Negro" }, icon: "🍫" }, { name: { en: "Butter", pt: "Manteiga" }, icon: "🧈" }, { name: { en: "Vanilla Ice Cream", pt: "Gelado de Baunilha" }, icon: "🍨" } ]
                     },
@@ -208,7 +244,6 @@
         };
 
         // --- STATE ---
-        // Manages the current state of the application
         let currentState = {
             language: 'en',
             theme: 'dark',
@@ -225,10 +260,6 @@
         const detailView = document.getElementById('detail-view');
         
         // --- RENDER FUNCTIONS ---
-
-        /**
-         * Renders the category filter buttons based on the current language.
-         */
         function renderCategories() {
             const lang = currentState.language;
             const categories = [appData.text[lang].allCategories, ...appData.menu.categories[lang]];
@@ -247,9 +278,6 @@
             }).join('');
         }
 
-        /**
-         * Renders the menu items, optionally filtering by category.
-         */
         function renderMenuItems() {
             const lang = currentState.language;
             const activeCat = currentState.activeCategory;
@@ -264,7 +292,8 @@
                     const badgeColors = {
                         chef: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300',
                         new: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
-                        spicy: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300'
+                        spicy: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+                        popular: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
                     };
                     return `<span class="text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full ${badgeColors[badgeKey]}">${textData.badges[badgeKey]}</span>`;
                 }).join('');
@@ -274,7 +303,7 @@
                         <img src="${item.image}" alt="${item.name[lang]}" class="w-full h-32 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+Not+Found';">
                         <div class="p-4 flex flex-col flex-grow">
                             <h3 class="font-bold text-md truncate">${item.name[lang]}</h3>
-                            <div class="mt-2">${badgeHTML}</div>
+                            <div class="mt-2 flex flex-wrap gap-y-1">${badgeHTML}</div>
                             <p class="text-primary-light dark:text-primary-dark font-semibold mt-auto pt-2">€${item.price}</p>
                         </div>
                     </div>
@@ -282,10 +311,6 @@
             }).join('');
         }
 
-        /**
-         * Renders the detail view for a specific item.
-         * @param {number} itemId - The ID of the item to display.
-         */
         function renderDetailView(itemId) {
             const lang = currentState.language;
             const textData = appData.text[lang];
@@ -294,21 +319,19 @@
             if (!item) return;
 
             const ingredientsHTML = item.ingredients.map(ing => `
-                <div class="flex items-center space-x-3 bg-background-light dark:bg-background-dark p-3 rounded-lg">
+                <div class="flex items-center space-x-3 bg-background-light dark:bg-background-dark p-3 rounded-lg ring-1 ring-gray-200 dark:ring-gray-700">
                     <span class="text-2xl">${ing.icon}</span>
                     <span class="text-text-secondary-light dark:text-text-secondary-dark">${ing.name[lang]}</span>
                 </div>
             `).join('');
 
             detailView.innerHTML = `
-                <!-- Detail View Header -->
-                <header class="p-4 flex-shrink-0">
-                    <button id="close-detail-view" class="bg-black bg-opacity-20 dark:bg-opacity-50 text-white rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-white">
+                <header class="p-4 flex-shrink-0 absolute top-0 left-0 z-10">
+                    <button id="close-detail-view" class="bg-black bg-opacity-40 text-white rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-white">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
                     </button>
                 </header>
 
-                <!-- Scrollable Content -->
                 <div class="flex-grow overflow-y-auto no-scrollbar">
                     <img src="${item.image}" alt="${item.name[lang]}" class="w-full h-64 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/400x300/cccccc/ffffff?text=Image+Not+Found';">
                     <div class="p-6">
@@ -324,69 +347,51 @@
                 </div>
             `;
             
-            // Show the modal
             detailView.classList.remove('translate-y-full', 'opacity-0');
-            document.body.style.overflow = 'hidden'; // Prevent background scroll
+            document.body.style.overflow = 'hidden';
         }
 
         // --- EVENT HANDLERS ---
-
-        /**
-         * Toggles the color theme between light and dark.
-         */
         function handleThemeToggle() {
             const html = document.documentElement;
             html.classList.toggle('dark');
             
             if (html.classList.contains('dark')) {
                 currentState.theme = 'dark';
-                sunIcon.classList.add('hidden');
-                moonIcon.classList.remove('hidden');
-            } else {
-                currentState.theme = 'light';
+                // In dark mode, show sun icon to switch to light
                 sunIcon.classList.remove('hidden');
                 moonIcon.classList.add('hidden');
+            } else {
+                currentState.theme = 'light';
+                // In light mode, show moon icon to switch to dark
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
             }
         }
 
-        /**
-         * Toggles the language between English and Portuguese.
-         */
         function handleLanguageToggle() {
             currentState.language = currentState.language === 'en' ? 'pt' : 'en';
+            // Update button to show current language
             languageToggle.textContent = currentState.language.toUpperCase();
-            // Reset to "All" category on language change
             currentState.activeCategory = appData.text[currentState.language].allCategories;
             updateAllText();
         }
         
-        /**
-         * Updates all text elements on the page to the current language.
-         */
         function updateAllText() {
             const lang = currentState.language;
             document.getElementById('header-subtitle').textContent = appData.text[lang].headerSubtitle;
-            // Re-render components to update their text
             renderCategories();
             renderMenuItems();
         }
 
-        /**
-         * Handles clicks on category filter buttons.
-         * @param {Event} e - The click event.
-         */
         function handleCategoryClick(e) {
             if (e.target.classList.contains('category-btn')) {
                 currentState.activeCategory = e.target.dataset.category;
-                renderCategories(); // Re-render to update active styles
+                renderCategories();
                 renderMenuItems();
             }
         }
 
-        /**
-         * Handles clicks on menu item cards to open the detail view.
-         * @param {Event} e - The click event.
-         */
         function handleMenuItemClick(e) {
             const card = e.target.closest('.menu-item-card');
             if (card) {
@@ -395,23 +400,20 @@
             }
         }
         
-        /**
-         * Closes the detail view modal.
-         */
         function handleCloseDetailView() {
             detailView.classList.add('translate-y-full', 'opacity-0');
-            document.body.style.overflow = 'auto'; // Restore background scroll
+            document.body.style.overflow = 'auto';
         }
 
         // --- INITIALIZATION ---
-
-        /**
-         * Initializes the application.
-         */
         function init() {
-            // Set initial theme
+            // Set initial theme based on state
             if (currentState.theme === 'dark') {
                 document.documentElement.classList.add('dark');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
                 sunIcon.classList.add('hidden');
                 moonIcon.classList.remove('hidden');
             }
@@ -428,7 +430,6 @@
             languageToggle.addEventListener('click', handleLanguageToggle);
             categoryFiltersContainer.addEventListener('click', handleCategoryClick);
             menuGrid.addEventListener('click', handleMenuItemClick);
-            // Use event delegation for the close button since it's dynamically created
             detailView.addEventListener('click', (e) => {
                 if (e.target.closest('#close-detail-view')) {
                     handleCloseDetailView();
@@ -436,10 +437,8 @@
             });
         }
 
-        // Run the app
         document.addEventListener('DOMContentLoaded', init);
 
     </script>
 </body>
 </html>
-
