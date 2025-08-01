@@ -163,48 +163,31 @@
         <!-- Content will be injected here by JavaScript -->
       </div>
 
+      <!-- ===== Chat View (Modal) ===== -->
       <div
         id="chat-view"
         class="fixed inset-0 bg-background-light dark:bg-background-dark z-50 transform translate-y-full opacity-0 flex flex-col transition-transform duration-300 ease-in-out"
       >
-        <header
-          class="p-4 flex items-center justify-between bg-surface-light dark:bg-surface-dark shadow-md flex-shrink-0"
-        >
+        <header class="p-4 flex items-center justify-between bg-surface-light dark:bg-surface-dark shadow-md flex-shrink-0">
           <h2 class="text-lg font-bold">AI Assistant</h2>
-          <button
-            id="close-chat-view"
-            class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M6 18L18 6M6 6l12 12"
-              />
+          <button id="close-chat-view" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </header>
-        
-        <div class="flex-grow p-4 overflow-y-auto">
-          <p
-            class="text-sm text-text-secondary-light dark:text-text-secondary-dark"
-          >
-            Ask me anything about the menu!
-          </p>
+        <div id="chat-messages" class="flex-grow p-4 overflow-y-auto flex flex-col space-y-4">
+          <div class="p-3 rounded-lg bg-gray-200 dark:bg-gray-700 max-w-xs lg:max-w-md self-start">
+            <p class="text-sm">Ask me for dish recommendations or about ingredients!</p>
+          </div>
         </div>
-        <div class="p-4 bg-surface-light dark:bg-surface-dark flex-shrink-0">
-          <input
-            type="text"
-            placeholder="Type your question..."
-            class="w-full p-3 rounded-full bg-background-light dark:bg-background-dark focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark"
-          />
+        <div class="p-2 border-t border-gray-200 dark:border-gray-700 bg-surface-light dark:bg-surface-dark flex-shrink-0">
+          <form id="chat-form" class="flex items-center space-x-2">
+            <input id="chat-input" type="text" placeholder="Type your question..." class="w-full p-3 rounded-full bg-background-light dark:bg-background-dark focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark text-sm" autocomplete="off">
+            <button type="submit" class="bg-primary-light dark:bg-primary-dark text-white rounded-full p-3 flex-shrink-0 transform hover:scale-110 transition-transform focus:outline-none">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            </button>
+          </form>
         </div>
       </div>
 
@@ -220,12 +203,48 @@
           >
             <path
               fill-rule="evenodd"
+              d="M18 10c0 3.866-3.582 7-8 7a8.834 8.834 0 01-4.28-1.115a.5.5 0 01-.11-.428l.497-2.484a.5.5 0 01.396-.396l2.484-.497A.5.5 0 009.115 12a8.834 8.834 0 017-4.28c2.21 0 4 1.79 4 4zM2 10c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7H8c-1.105 0-2.079.33-2.941.916a.5.5 0 01-.583.05L2.25 15.5a.5.5 0 01-.05-.583A6.957 6.957 0 012 10z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+            <path
+              fill-rule="evenodd"
               d="M18 10c0 3.866-3.582 7-8 7a8.834 8.834 0 01-4.28-1.115a.5.5 0 01-.11-.428l.497-2.484a.5.5 0 01.396-.396l2.484-.497A.5.5 0 019.115 12a8.834 8.834 0 017-4.28c2.21 0 4 1.79 4 4zM2 10c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7H8c-1.105 0-2.079.33-2.941.916a.5.5 0 01-.583.05L2.25 15.5a.5.5 0 01-.05-.583A6.957 6.957 0 012 10z"
               clip-rule="evenodd"
             />
           </svg>
         </button>
       </div>
+      <div id="chat-view" class="fixed inset-0 bg-background-light dark:bg-background-dark z-50 transform translate-y-full opacity-0 flex flex-col transition-transform duration-300 ease-in-out">
+    <header class="p-4 flex items-center justify-between bg-surface-light dark:bg-surface-dark shadow-md flex-shrink-0">
+        <h2 class="text-lg font-bold">AI Assistant</h2>
+        <button id="close-chat-view" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+    </header>
+    
+    <div id="chat-messages" class="flex-grow p-4 overflow-y-auto flex flex-col space-y-4">
+        <div class="p-3 rounded-lg bg-gray-200 dark:bg-gray-700 max-w-xs lg:max-w-md self-start">
+            <p class="text-sm">Ask me for dish recommendations or about ingredients!</p>
+        </div>
+    </div>
+    
+    <div class="p-2 border-t border-gray-200 dark:border-gray-700 bg-surface-light dark:bg-surface-dark flex-shrink-0">
+        <form id="chat-form" class="flex items-center space-x-2">
+            <input id="chat-input" type="text" placeholder="Type your question..." class="w-full p-3 rounded-full bg-background-light dark:bg-background-dark focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark text-sm">
+            <button type="submit" class="bg-primary-light dark:bg-primary-dark text-white rounded-full p-3 flex-shrink-0 transform hover:scale-110 transition-transform focus:outline-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            </button>
+        </form>
+    </div>
+
     </div>
 
     <script src="script.js"></script>

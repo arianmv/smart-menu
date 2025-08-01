@@ -193,9 +193,12 @@ const languageToggle = document.getElementById("language-toggle");
 const categoryFiltersContainer = document.getElementById("category-filters");
 const menuGrid = document.getElementById("menu-grid");
 const detailView = document.getElementById("detail-view");
-const chatFab = document.getElementById('chat-fab');
-const chatView = document.getElementById('chat-view');
-const closeChatViewBtn = document.getElementById('close-chat-view');
+const chatFab = document.getElementById("chat-fab");
+const chatView = document.getElementById("chat-view");
+const closeChatViewBtn = document.getElementById("close-chat-view");
+const chatForm = document.getElementById("chat-form");
+const chatInput = document.getElementById("chat-input");
+const chatMessages = document.getElementById("chat-messages");
 
 // --- RENDER FUNCTIONS ---
 function renderCategories() {
@@ -395,24 +398,69 @@ function init() {
   });
 
   // Attach chat event listeners directly here
-  chatFab.addEventListener('click', handleOpenChatView);
-  closeChatViewBtn.addEventListener('click', handleCloseChatView);
+  chatFab.addEventListener("click", handleOpenChatView);
+  closeChatViewBtn.addEventListener("click", handleCloseChatView);
+  chatForm.addEventListener("submit", handleSendMessage);
 }
 
 /**
  * Opens the chat view modal.
  */
 function handleOpenChatView() {
-    chatView.classList.remove('translate-y-full', 'opacity-0');
-    document.body.style.overflow = 'hidden';
+  chatView.classList.remove("translate-y-full", "opacity-0");
+  document.body.style.overflow = "hidden";
 }
 
 /**
  * Closes the chat view modal.
  */
 function handleCloseChatView() {
-    chatView.classList.add('translate-y-full', 'opacity-0');
-    document.body.style.overflow = 'auto';
+  chatView.classList.add("translate-y-full", "opacity-0");
+  document.body.style.overflow = "auto";
+}
+
+/**
+ * Adds a message bubble to the chat window.
+ * @param {string} text - The message content.
+ * @param {('user' | 'bot')} sender - Who sent the message.
+ */
+function addMessageToChat(text, sender) {
+  const messageElement = document.createElement("div");
+  messageElement.classList.add("chat-message", `${sender}-message`);
+  messageElement.textContent = text;
+  chatMessages.appendChild(messageElement);
+
+  // Scroll to the bottom to show the new message
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+/**
+ * Handles the chat form submission.
+ * @param {Event} e - The form submission event.
+ */
+function handleSendMessage(e) {
+  e.preventDefault(); // Prevents the page from reloading
+  const userText = chatInput.value.trim();
+
+  if (userText) {
+    // Add the user's message to the chat
+    addMessageToChat(userText, "user");
+    chatInput.value = ""; // Clear the input field
+
+    // --- AI Response Simulation ---
+    // This is where you'll later call your backend.
+    // For now, we'll simulate a response.
+    setTimeout(() => {
+      addMessageToChat("That's a great question! Let me think...", "bot");
+    }, 500);
+
+    setTimeout(() => {
+      addMessageToChat(
+        "For now, I can only repeat your question, but soon I will be able to help you!",
+        "bot"
+      );
+    }, 1500);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", init);
