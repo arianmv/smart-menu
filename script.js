@@ -193,6 +193,9 @@ const languageToggle = document.getElementById("language-toggle");
 const categoryFiltersContainer = document.getElementById("category-filters");
 const menuGrid = document.getElementById("menu-grid");
 const detailView = document.getElementById("detail-view");
+const chatFab = document.getElementById('chat-fab');
+const chatView = document.getElementById('chat-view');
+const closeChatViewBtn = document.getElementById('close-chat-view');
 
 // --- RENDER FUNCTIONS ---
 function renderCategories() {
@@ -390,6 +393,26 @@ function init() {
       handleCloseDetailView();
     }
   });
+
+  // Attach chat event listeners directly here
+  chatFab.addEventListener('click', handleOpenChatView);
+  closeChatViewBtn.addEventListener('click', handleCloseChatView);
+}
+
+/**
+ * Opens the chat view modal.
+ */
+function handleOpenChatView() {
+    chatView.classList.remove('translate-y-full', 'opacity-0');
+    document.body.style.overflow = 'hidden';
+}
+
+/**
+ * Closes the chat view modal.
+ */
+function handleCloseChatView() {
+    chatView.classList.add('translate-y-full', 'opacity-0');
+    document.body.style.overflow = 'auto';
 }
 
 document.addEventListener("DOMContentLoaded", init);

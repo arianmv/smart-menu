@@ -1,111 +1,233 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Italian Corner - Digital Menu</title>
-    
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <script>
-        // Custom Tailwind CSS configuration
-        tailwind.config = {
-            darkMode: 'class', // Enable dark mode using a class
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        // Define custom colors for light and dark modes
-                        primary: {
-                            light: '#E53935', // Red for light mode
-                            dark: '#EF5350'   // Lighter red for dark mode
-                        },
-                        background: {
-                            light: '#F5F5F5', // Light gray for light mode
-                            dark: '#1A1A1A'   // Dark gray for dark mode
-                        },
-                        surface: {
-                            light: '#FFFFFF', // White for cards in light mode
-                            dark: '#2C2C2C'   // Lighter dark gray for cards
-                        },
-                        text: {
-                            primary: {
-                                light: '#1A1A1A',
-                                dark: '#FFFFFF'
-                            },
-                            secondary: {
-                                light: '#6B7280',
-                                dark: '#9CA3AF'
-                            }
-                        }
-                    },
-                    transformOrigin: {
-                        '0': '0%',
-                    }
-                }
-            }
-        }
+      // Custom Tailwind CSS configuration
+      tailwind.config = {
+        darkMode: "class", // Enable dark mode using a class
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              // Define custom colors for light and dark modes
+              primary: {
+                light: "#E53935", // Red for light mode
+                dark: "#EF5350", // Lighter red for dark mode
+              },
+              background: {
+                light: "#F5F5F5", // Light gray for light mode
+                dark: "#1A1A1A", // Dark gray for dark mode
+              },
+              surface: {
+                light: "#FFFFFF", // White for cards in light mode
+                dark: "#2C2C2C", // Lighter dark gray for cards
+              },
+              text: {
+                primary: {
+                  light: "#1A1A1A",
+                  dark: "#FFFFFF",
+                },
+                secondary: {
+                  light: "#6B7280",
+                  dark: "#9CA3AF",
+                },
+              },
+            },
+            transformOrigin: {
+              0: "0%",
+            },
+          },
+        },
+      };
     </script>
-
-</head>
-<body class="bg-background-light dark:bg-background-dark font-sans antialiased">
-
+  </head>
+  <body
+    class="bg-background-light dark:bg-background-dark font-sans antialiased"
+  >
     <!-- Main Application Container -->
-    <div id="app-container" class="max-w-md mx-auto min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark shadow-2xl">
+    <div
+      id="app-container"
+      class="max-w-md mx-auto min-h-screen bg-background-light dark:bg-background-dark text-text-primary-light dark:text-text-primary-dark shadow-2xl"
+    >
+      <!-- ===== Menu View ===== -->
+      <div id="menu-view">
+        <!-- Header -->
+        <header class="p-4 flex justify-between items-center">
+          <div>
+            <h1 id="header-title" class="text-2xl font-bold">
+              The Italian Corner
+            </h1>
+            <p
+              id="header-subtitle"
+              class="text-sm text-text-secondary-light dark:text-text-secondary-dark"
+            >
+              Digital Menu
+            </p>
+          </div>
+          <div class="flex items-center space-x-3">
+            <!-- Theme Toggle -->
+            <button
+              id="theme-toggle"
+              class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark"
+            >
+              <!-- Sun Icon (shown in dark mode to switch to light) -->
+              <svg
+                id="sun-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                />
+              </svg>
+              <!-- Moon Icon (shown in light mode to switch to dark) -->
+              <svg
+                id="moon-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 hidden"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                />
+              </svg>
+            </button>
+            <!-- Language Toggle -->
+            <button
+              id="language-toggle"
+              class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark text-base font-semibold w-10 h-10"
+            >
+              EN
+            </button>
+          </div>
+        </header>
 
-        <!-- ===== Menu View ===== -->
-        <div id="menu-view">
-            <!-- Header -->
-            <header class="p-4 flex justify-between items-center">
-                <div>
-                    <h1 id="header-title" class="text-2xl font-bold">The Italian Corner</h1>
-                    <p id="header-subtitle" class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Digital Menu</p>
-                </div>
-                <div class="flex items-center space-x-3">
-                    <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark">
-                        <!-- Sun Icon (shown in dark mode to switch to light) -->
-                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                        <!-- Moon Icon (shown in light mode to switch to dark) -->
-                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-                    </button>
-                    <!-- Language Toggle -->
-                    <button id="language-toggle" class="p-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark text-base font-semibold w-10 h-10">EN</button>
-                </div>
-            </header>
+        <!-- Category Filters -->
+        <nav
+          class="px-4 pb-4 sticky top-0 bg-background-light dark:bg-background-dark z-10 border-b border-gray-200 dark:border-gray-700"
+        >
+          <div class="scroll-indicator">
+            <div
+              id="category-filters"
+              class="flex space-x-3 overflow-x-auto no-scrollbar"
+            >
+              <!-- Categories will be injected here by JavaScript -->
+            </div>
+          </div>
+        </nav>
 
-            <!-- Category Filters -->
-            <nav class="px-4 pb-4 sticky top-0 bg-background-light dark:bg-background-dark z-10 border-b border-gray-200 dark:border-gray-700">
-                <div class="scroll-indicator">
-                    <div id="category-filters" class="flex space-x-3 overflow-x-auto no-scrollbar">
-                        <!-- Categories will be injected here by JavaScript -->
-                    </div>
-                </div>
-            </nav>
+        <!-- Menu Items Grid -->
+        <main id="menu-grid" class="p-4 grid grid-cols-2 gap-4">
+          <!-- Menu items will be injected here by JavaScript -->
+        </main>
+      </div>
 
-            <!-- Menu Items Grid -->
-            <main id="menu-grid" class="p-4 grid grid-cols-2 gap-4">
-                <!-- Menu items will be injected here by JavaScript -->
-            </main>
+      <!-- ===== Item Detail View (Modal) ===== -->
+      <div
+        id="detail-view"
+        class="fixed inset-0 bg-background-light dark:bg-background-dark z-50 transform translate-y-full opacity-0 flex flex-col"
+      >
+        <!-- Content will be injected here by JavaScript -->
+      </div>
+
+      <div
+        id="chat-view"
+        class="fixed inset-0 bg-background-light dark:bg-background-dark z-50 transform translate-y-full opacity-0 flex flex-col transition-transform duration-300 ease-in-out"
+      >
+        <header
+          class="p-4 flex items-center justify-between bg-surface-light dark:bg-surface-dark shadow-md flex-shrink-0"
+        >
+          <h2 class="text-lg font-bold">AI Assistant</h2>
+          <button
+            id="close-chat-view"
+            class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </header>
+        
+        <div class="flex-grow p-4 overflow-y-auto">
+          <p
+            class="text-sm text-text-secondary-light dark:text-text-secondary-dark"
+          >
+            Ask me anything about the menu!
+          </p>
         </div>
-
-        <!-- ===== Item Detail View (Modal) ===== -->
-        <div id="detail-view" class="fixed inset-0 bg-background-light dark:bg-background-dark z-50 transform translate-y-full opacity-0 flex flex-col">
-            <!-- Content will be injected here by JavaScript -->
+        <div class="p-4 bg-surface-light dark:bg-surface-dark flex-shrink-0">
+          <input
+            type="text"
+            placeholder="Type your question..."
+            class="w-full p-3 rounded-full bg-background-light dark:bg-background-dark focus:outline-none focus:ring-2 focus:ring-primary-light dark:focus:ring-primary-dark"
+          />
         </div>
+      </div>
 
+      <div id="chat-fab" class="fixed bottom-6 right-6 z-40">
+        <button
+          class="bg-primary-light dark:bg-primary-dark text-white w-16 h-16 rounded-full shadow-lg flex items-center justify-center transform hover:scale-110 transition-transform"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-8 w-8"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M18 10c0 3.866-3.582 7-8 7a8.834 8.834 0 01-4.28-1.115a.5.5 0 01-.11-.428l.497-2.484a.5.5 0 01.396-.396l2.484-.497A.5.5 0 019.115 12a8.834 8.834 0 017-4.28c2.21 0 4 1.79 4 4zM2 10c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7H8c-1.105 0-2.079.33-2.941.916a.5.5 0 01-.583.05L2.25 15.5a.5.5 0 01-.05-.583A6.957 6.957 0 012 10z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
 
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
