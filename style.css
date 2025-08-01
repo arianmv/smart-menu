@@ -1,0 +1,31 @@
+        /* Style for the scrollbar to make it less obtrusive */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Transition for the detail view modal */
+        #detail-view {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        }
+
+        /* Gradient and arrow to indicate scrollable area on the category bar */
+        .scroll-indicator {
+            position: relative;
+        }
+        .scroll-indicator::after {
+            content: '›';
+            font-size: 28px;
+            font-weight: bold;
+            color: #9CA3AF;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(to right, transparent, #F5F5F5 50%);
+            padding: 10px 8px 10px 20px;
+            pointer-events: none;
+            line-height: 1;
+        }
+        .dark .scroll-indicator::after {
+            background: linear-gradient(to right, transparent, #1A1A1A 50%);
+            color: #6B7280;
+        }
